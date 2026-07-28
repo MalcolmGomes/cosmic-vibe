@@ -1,0 +1,27 @@
+version: 2
+
+updates:
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    # Batch minor/patch bumps into one PR. Majors stay ungrouped so each
+    # breaking change is reviewed on its own.
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    # Action bumps are low risk, so batch everything (including majors).
+    groups:
+      github-actions:
+        patterns:
+          - "*"
